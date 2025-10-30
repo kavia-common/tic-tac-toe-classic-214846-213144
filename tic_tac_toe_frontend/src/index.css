@@ -1,0 +1,300 @@
+:root {
+  --primary: #3b82f6;    /* blue-500 */
+  --success: #06b6d4;    /* cyan-500 */
+  --surface: #ffffff;
+  --background: #f9fafb; /* gray-50 */
+  --text: #111827;       /* gray-900 */
+  --muted: #64748b;      /* gray-500/600 */
+  --border: #e5e7eb;     /* gray-200 */
+  --shadow: 0 10px 25px rgba(0,0,0,0.06);
+  --error: #EF4444;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 50% -10%, rgba(59,130,246,0.08), transparent),
+              linear-gradient(180deg, rgba(255,255,255,1), rgba(249,250,251,1));
+  color: var(--text);
+}
+
+/* App container */
+.ttt-app {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* Two-column layout on desktop, stacked on mobile/tablet */
+.ttt-layout {
+  width: 100%;
+  max-width: 1024px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 992px) {
+  .ttt-layout {
+    grid-template-columns: 1fr 360px;
+    align-items: start;
+  }
+}
+
+/* Main game card */
+.ttt-card {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.ttt-title {
+  margin: 0 0 16px 0;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--success));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+/* Top controls */
+.ttt-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.ttt-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.ttt-mode-label {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.ttt-select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-weight: 600;
+  background: var(--background);
+}
+
+/* Board */
+.ttt-board {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 8px 0 16px;
+}
+
+.ttt-board-disabled {
+  pointer-events: none;
+  opacity: 0.96;
+}
+
+.ttt-cell {
+  aspect-ratio: 1 / 1;
+  background: var(--background);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: clamp(36px, 9vw, 48px);
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease, opacity 160ms ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.ttt-cell:hover:enabled {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 6px 16px rgba(59,130,246,0.15);
+}
+
+.ttt-cell:active:enabled {
+  transform: translateY(0);
+}
+
+.ttt-cell:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.ttt-cell.ttt-x {
+  color: var(--primary);
+}
+
+.ttt-cell.ttt-o {
+  color: var(--success);
+}
+
+.ttt-cell-win {
+  background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(6,182,212,0.1));
+  border-color: rgba(6,182,212,0.8);
+  box-shadow: 0 6px 16px rgba(6,182,212,0.2);
+}
+
+/* Status */
+.ttt-status {
+  text-align: center;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(59,130,246,0.08), rgba(6,182,212,0.06));
+  border: 1px solid var(--border);
+  font-weight: 600;
+}
+
+/* Actions */
+.ttt-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.ttt-btn {
+  appearance: none;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--success));
+  box-shadow: 0 8px 18px rgba(59,130,246,0.22);
+  transition: transform 120ms ease, box-shadow 160ms ease, filter 160ms ease, opacity 160ms ease;
+}
+
+.ttt-btn:hover:enabled {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(59,130,246,0.28);
+  filter: saturate(1.05);
+}
+
+.ttt-btn:active:enabled {
+  transform: translateY(0);
+}
+
+.ttt-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.ttt-footer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Side panel */
+.ttt-side {
+  width: 100%;
+}
+
+.ttt-chat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.ttt-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ttt-chat-title {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--primary), var(--success));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ttt-badge {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--background);
+}
+
+.ttt-badge-live {
+  border-color: rgba(59,130,246,0.5);
+  color: var(--primary);
+}
+
+.ttt-chat-list {
+  max-height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.ttt-chat-item.ai {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ttt-chat-item.human {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ttt-chat-bubble {
+  max-width: 82%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(59,130,246,0.06), rgba(6,182,212,0.04));
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+/* Responsive adjustments for tablet/desktop */
+@media (min-width: 768px) {
+  .ttt-card {
+    padding: 28px;
+  }
+  .ttt-board {
+    gap: 12px;
+  }
+}
